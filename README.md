@@ -46,8 +46,8 @@
 >> Task        |   Done
 >> :---------- | :-------
 >> Routing design and Schema | ✅ 
->> Routes implementation | 
->> Controllers for each route |
+>> Routes implementation | ✅
+>> Controllers for each route | ✅
 >
 >>#### **System functions**
 >> Task        |   Done
