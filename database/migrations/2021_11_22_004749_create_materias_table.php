@@ -19,7 +19,9 @@ class CreateMateriasTable extends Migration
             $table->integer('id_materia_previa')->default(0);       
             $table->integer('ciclo');
             $table->integer('creditos');
-            $table->integer('id_carrera'); 
+            $table->integer('id_carrera');
+            $table->integer('limite_alumnos')->default(30);
+            $table->integer('alumnos_registrados')->default(0); 
         });
     }
 
