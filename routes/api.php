@@ -21,6 +21,12 @@ use App\Http\Controllers\MateriasController;
 
 Route::post('login/', [AuthController::class, 'login']);
 
+Route::get('/{id}', [UsuarioController::class, 'mostrar_datos_usuario']);
+Route::get('/materias/{id}', [MateriasController::class, 'mostrar_materias']);
+Route::get('/grupos/{id}', [GruposController::class, 'mostrar_grupos']);
+
+// TODO: Implent routes for subscribe and unsubscribe
+
 Route::prefix('profile')->group(function () {
     Route::get('/{matricula}', [UsuarioController::class, 'show']);
     Route::get('/horario/{matricula}', [HorariosController::class, 'horario']);
