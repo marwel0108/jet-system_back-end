@@ -37,10 +37,10 @@
 >>#### **Database**
 >> Task        |   Done
 >> :---------- | :-------
->> Logic and Schema | 
->> Database and tables created | 
->> Data insertion for further operations |
->> Models for Data |
+>> Logic and Schema | ✅
+>> Database and tables created | ✅ 
+>> Data insertion for further operations | ✅
+>> Models for Data | ✅
 >
 >>#### **Routing**
 >> Task        |   Done
