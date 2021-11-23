@@ -37,17 +37,17 @@
 >>#### **Database**
 >> Task        |   Done
 >> :---------- | :-------
->> Logic and Schema | 
->> Database and tables created | 
->> Data insertion for further operations |
->> Models for Data |
+>> Logic and Schema | ✅
+>> Database and tables created | ✅ 
+>> Data insertion for further operations | ✅
+>> Models for Data | ✅
 >
 >>#### **Routing**
 >> Task        |   Done
 >> :---------- | :-------
 >> Routing design and Schema | ✅ 
->> Routes implementation | 
->> Controllers for each route |
+>> Routes implementation | ✅
+>> Controllers for each route | ✅
 >
 >>#### **System functions**
 >> Task        |   Done
