@@ -17,6 +17,7 @@ class CreateMateriasCursadasTable extends Migration
             $table->integer('id_materia');
             $table->integer('id_alumno');
             $table->integer('estado')->default(1); 
+            $table->timestamps();
         });
     }
 
