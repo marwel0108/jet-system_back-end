@@ -24,29 +24,21 @@ class GruposController extends Controller
             $im = array();
 
             $carreras = Carreras::all();
-            $grupos = Grupos::all();
-
-            // SELECT a.matricula, u.nombre, u.apellido, u.email
-            // FROM alumnos a
-            // INNER JOIN users u ON a.matricula = u.id
-            // WHERE a.id_grupo = 3 AND a.id_carrera = 1; 
-
-            // TODO: Create arrays for each carreer and group
-
 
             foreach ($carreras as $carrera) {
+                $grupos = Grupos::where('id_carrera', $carrera->id)->get(); 
                 foreach ($grupos as $grupo) {
-                    $alumno = Alumnos::join('users AS u', 'alumnos.matricula', '=', 'u.id')
+                    $alumnos = Alumnos::join('users AS u', 'alumnos.matricula', '=', 'u.id')
                                         ->where('alumnos.id_grupo', $grupo->id)
                                         ->where('alumnos.id_carrera', $carrera->id)
-                                        ->get(['alumnos.matricula', 'u.nombre', 'u.apellido', 'u.email']);
+                                        ->get(['alumnos.matricula', 'u.nombre', 'u.apellido']);
 
                     if ($carrera->id == 1) {
-                        array_push($isw, $alumno);
+                        array_push($isw, $alumnos);
                     } elseif ($carrera->id == 2) {
-                        array_push($ilt, $alumno);
+                        array_push($ilt, $alumnos);
                     } else {
-                        array_push($im, $alumno);
+                        array_push($im, $alumnos);
                     }
                 }
             }
@@ -57,8 +49,19 @@ class GruposController extends Controller
             ], 200);
         }
 
+        $carrera = Alumnos::where('matricula', $id)
+                            ->get('id_carrera')->first();
+
+        $grupo = Alumnos::where('matricula', $id)
+                            ->get('id_grupo')->first();
+
+        $alumnos = Alumnos::join('users AS u', 'alumnos.matricula', '=', 'u.id')
+                        ->where('alumnos.id_grupo', $grupo->id_grupo)
+                        ->where('alumnos.id_carrera', $carrera->id_carrera)
+                        ->get(['alumnos.matricula', 'u.nombre', 'u.apellido']);
+
         return response()->json([
-            
+            $alumnos
         ], 200);
     }
 }
