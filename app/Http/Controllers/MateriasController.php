@@ -12,18 +12,18 @@ class MateriasController extends Controller
 {
     public function mostrar_todas_materias()
     {
-        $isw = array();
-        $ilt = array();
-        $im = array();
+        $isw = array([], [], []);
+        $ilt = array([], [], []);
+        $im = array([], [], []);
         $materias = Materias::join('carreras AS c', 'materias.id_carrera', '=', 'c.id')
             ->get(['materias.id_carrera', 'materias.nombre', 'c.nombre AS nombre_carrera', 'materias.ciclo']);
         foreach ($materias as $materia) {
             if ($materia->id_carrera == 1) {
-                array_push($isw, $materia);
+                array_push($isw[$materia->ciclo - 1], $materia);
             } elseif ($materia->id_carrera == 2) {
-                array_push($ilt, $materia);
+                array_push($ilt[$materia->ciclo - 1], $materia);
             } else {
-                array_push($im, $materia);
+                array_push($im[$materia->ciclo - 1], $materia);
             }
         }
         return response()->json([
