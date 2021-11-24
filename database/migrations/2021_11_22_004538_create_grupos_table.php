@@ -17,6 +17,7 @@ class CreateGruposTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->integer('id_carrera');
+            $table->timestamps();
         });
     }
 

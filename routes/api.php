@@ -21,18 +21,12 @@ use App\Http\Controllers\MateriasController;
 
 Route::post('login/', [AuthController::class, 'login']);
 
-Route::get('/{id}', [UsuarioController::class, 'mostrar_datos_usuario']);
-Route::get('/materias/{id}', [MateriasController::class, 'mostrar_materias']);
-Route::get('/grupos/{id}', [GruposController::class, 'mostrar_grupos']);
+Route::get('profile/{id}', [UsuarioController::class, 'mostrar_datos_usuario']);
+Route::get('alumno/materias/{id}', [MateriasController::class, 'mostrar_materias']);
+Route::get('materias', [MateriasController::class, 'mostrar_todas_materias']);
+Route::get('grupos/{id}', [GruposController::class, 'mostrar_grupos']);
 
 // TODO: Implent routes for subscribe and unsubscribe
 
-Route::prefix('profile')->group(function () {
-    Route::get('/{matricula}', [UsuarioController::class, 'show']);
-    Route::get('/horario/{matricula}', [HorariosController::class, 'horario']);
-    Route::get('/horarios/{matricula}', [HorariosController::class, 'horarios']);
-    Route::get('/grupos/{matricula}', [GruposController::class, 'show_grupos']);
-    Route::get('/materias/{matricula}', [MateriasController::class, 'show_materias']);
-    Route::post('/materias/alta_materia/{matricula}', [MateriasController::class, 'alta_materia']);
-    Route::post('/materias/baja_materia/{matricula}', [MateriasController::class, 'baja_materia']);
-});
+Route::post('alumno/dar_alta/{id}', [MateriasController::class, 'dar_alta']);
+Route::post('alumno/dar_baja/{id}', [MateriasController::class, 'dar_baja']);

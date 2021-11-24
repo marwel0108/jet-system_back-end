@@ -18,6 +18,7 @@ class CreateAlumnosTable extends Migration
             $table->integer('creditos');
             $table->integer('id_carrera');
             $table->integer('id_grupo');
+            $table->timestamps();
         });
     }
 

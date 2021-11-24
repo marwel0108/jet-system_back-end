@@ -22,6 +22,7 @@ class CreateMateriasTable extends Migration
             $table->integer('id_carrera');
             $table->integer('limite_alumnos')->default(30);
             $table->integer('alumnos_registrados')->default(0); 
+            $table->timestamps();
         });
     }
 
