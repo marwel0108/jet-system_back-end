@@ -3,9 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UsuarioController;
-use App\Http\Controllers\HorariosController;
-use App\Http\Controllers\GruposController;
 use App\Http\Controllers\MateriasController;
 
 /*
@@ -19,14 +16,18 @@ use App\Http\Controllers\MateriasController;
 |
 */
 
-Route::post('login/', [AuthController::class, 'login']);
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
 
-Route::get('profile/{id}', [UsuarioController::class, 'mostrar_datos_usuario']);
-Route::get('alumno/materias/{id}', [MateriasController::class, 'mostrar_materias']);
+    Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('profile/{id}', [AuthController::class, 'mostrar_datos_usuario']);
+    Route::post('alumno/materias/{id}', [AuthController::class, 'mostrar_materias']);
+    Route::post('alumno/dar_baja/{id}', [AuthController::class, 'dar_baja']);
+    Route::post('alumno/dar_alta/{id}', [AuthController::class, 'dar_alta']);
+    Route::post('grupos/{id}', [AuthController::class, 'mostrar_grupos']);
+});
+
 Route::get('materias', [MateriasController::class, 'mostrar_todas_materias']);
-Route::get('grupos/{id}', [GruposController::class, 'mostrar_grupos']);
-
-// TODO: Implent routes for subscribe and unsubscribe
-
-Route::post('alumno/dar_alta/{id}', [MateriasController::class, 'dar_alta']);
-Route::post('alumno/dar_baja/{id}', [MateriasController::class, 'dar_baja']);
