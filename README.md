@@ -52,11 +52,11 @@
 >>#### **System functions**
 >> Task        |   Done
 >> :---------- | :-------
->> Auth(Login, Logout) | 
->> JWT for Auth |
->> Information consult depending on the user |
->> Subscribing to a class |
->> Unsubscribing to a class |
+>> Auth(Login, Logout) | ✅
+>> JWT for Auth | ✅
+>> Information consult depending on the user | ✅
+>> Subscribing to a class | ✅
+>> Unsubscribing to a class | ✅
 >
 
 
