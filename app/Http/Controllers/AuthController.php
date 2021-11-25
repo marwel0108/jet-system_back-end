@@ -49,14 +49,16 @@ class AuthController extends Controller
         ]);
 
         if ($user_type = $user['tipo_usuario'] == 1) {
-            return response()->json($user, 200);
+            return response()->json([
+                'usuario' => $user
+            ], 200);
         }
 
         $alumno = Carreras::join('grupos AS g', 'g.id_carrera', '=', 'carreras.id')
             ->join('alumnos AS a', 'a.id_grupo', '=', 'g.id')
             ->join('users AS u', 'a.matricula', '=', 'u.id')
             ->where('u.id', $id)
-            ->get(['a.matricula', 'u.nombre as nombre_alumno', 'u.apellido', 'g.nombre AS nombre_grupo', 'carreras.nombre AS nombre_carrera'])
+            ->get(['a.matricula', 'u.nombre as nombre', 'u.apellido', 'g.nombre AS nombre_grupo', 'carreras.nombre AS nombre_carrera'])
             ->first();
         $datos_materias = Materias::join('materias_cursadas', 'materias.id', '=', 'materias_cursadas.id_materia')
             ->where('materias_cursadas.id_alumno', $id)
@@ -78,9 +80,16 @@ class AuthController extends Controller
         $materias = Materias::join('materias_cursadas AS mc', 'materias.id', '=', 'mc.id_materia')
             ->where('mc.id_alumno', $id)
             ->where('mc.estado', '<>', 3)
-            ->get(['materias.nombre', 'materias.creditos', 'mc.estado']);
+            ->get(['materias.id', 'materias.nombre', 'materias.creditos', 'mc.estado']);
 
-        return response()->json($materias, 200);
+        $creditos = Alumnos::where('matricula', $id)
+                                ->get('creditos')
+                                ->first();
+
+        return response()->json([
+            'materias' => $materias,
+            'creditos' => $creditos
+        ], 200);
     }
 
     public function mostrar_grupos($id)
@@ -143,7 +152,7 @@ class AuthController extends Controller
         $user = User::where('id', $id)->first();
 
         if (!$user) return response()->json([
-            'msg' => 'No existe alumno'
+            'error' => 'No existe alumno'
         ]);
 
         $bodyContent = request(['materia']);
@@ -160,7 +169,7 @@ class AuthController extends Controller
 
         if ($estado->estado == 4) {
             return response()->json([
-                'Error' => 'La materia previa está reprobada'
+                'error' => 'La materia previa está reprobada'
             ]);
         }
 
@@ -170,7 +179,7 @@ class AuthController extends Controller
 
         if ($limite->alumnos_registrados == 30) {
             return response()->json([
-                'Error' => 'El cupo de la materia ha sido alcanzado, lo sentimos'
+                'error' => 'El cupo de la materia ha sido alcanzado, lo sentimos'
             ]);
         }
 
@@ -200,7 +209,7 @@ class AuthController extends Controller
         $user = User::where('id', $id)->first();
 
         if (!$user) return response()->json([
-            'msg' => 'No existe alumno'
+            'error' => 'No existe alumno'
         ]);
 
         $bodyContent = request(['materia']);

@@ -3,9 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UsuarioController;
-use App\Http\Controllers\HorariosController;
-use App\Http\Controllers\GruposController;
 use App\Http\Controllers\MateriasController;
 
 /*
@@ -33,7 +30,4 @@ Route::group([
     Route::post('grupos/{id}', [AuthController::class, 'mostrar_grupos']);
 });
 
-Route::post('materias', [MateriasController::class, 'mostrar_todas_materias']);
-
-// TODO: Implent routes for subscribe and unsubscribe
-
+Route::get('materias', [MateriasController::class, 'mostrar_todas_materias']);
